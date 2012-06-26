@@ -36,7 +36,7 @@
     </parent>
 
     <artifactId>vm-configurator-api</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>JPaaS :: VM Configurator API</name>
 
     <description>JPaaS : VM Configurator API</description>
@@ -67,6 +67,12 @@
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven.bundle.plugin.version}</version>
+                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>
