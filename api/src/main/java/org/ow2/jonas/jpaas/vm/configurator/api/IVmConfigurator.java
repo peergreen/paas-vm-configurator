@@ -26,14 +26,14 @@
 package org.ow2.jonas.jpaas.vm.configurator.api;
 
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import java.util.concurrent.Future;
 
 /**
  * Interface for the VmConfigurator.
  * @author David Richard
  */
-@Remote
+@Local
 public interface IVmConfigurator {
 
     /**
