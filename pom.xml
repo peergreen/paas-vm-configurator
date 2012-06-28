@@ -27,54 +27,54 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.ow2</groupId>
-        <artifactId>ow2</artifactId>
-        <version>1.3</version>
-    </parent>
+  <parent>
+    <groupId>org.ow2</groupId>
+    <artifactId>ow2</artifactId>
+    <version>1.3</version>
+  </parent>
 
-    <groupId>org.ow2.jonas.jpaas.vm-configurator</groupId>
-    <artifactId>vm-configurator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>JPaaS :: VM Configurator</name>
+  <groupId>org.ow2.jonas.jpaas.vm-configurator</groupId>
+  <artifactId>vm-configurator</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>JPaaS :: VM Configurator</name>
 
-    <description>JPaaS : VM Configurator</description>
-    <url>http://wiki.jasmine.ow2.org/</url>
-    <developers/>
-    <licenses>
-        <license>
-            <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
-            <url>http://www.gnu.org/copyleft/lesser.html</url>
-        </license>
-    </licenses>
+  <description>JPaaS : VM Configurator</description>
+  <url>http://wiki.jasmine.ow2.org/</url>
+  <developers/>
+  <licenses>
+    <license>
+      <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
+      <url>http://www.gnu.org/copyleft/lesser.html</url>
+    </license>
+  </licenses>
 
-    <properties>
-        <ow2-bundles.version>1.0.32</ow2-bundles.version>
-        <jdk.version>1.6</jdk.version>
-        <ow2-spec.version>1.0.10</ow2-spec.version>
-        <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
-        <maven.bundle.plugin.version>2.3.7</maven.bundle.plugin.version>
-        <catalog.version>1.0.0-SNAPSHOT</catalog.version>
-        <sr.version>1.1.1-SNAPSHOT</sr.version>
-    </properties>
+  <properties>
+    <ow2-bundles.version>1.0.32</ow2-bundles.version>
+    <jdk.version>1.6</jdk.version>
+    <ow2-spec.version>1.0.10</ow2-spec.version>
+    <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
+    <maven.bundle.plugin.version>2.3.7</maven.bundle.plugin.version>
+    <catalog.version>1.0.0-SNAPSHOT</catalog.version>
+    <sr.version>1.1.1-SNAPSHOT</sr.version>
+  </properties>
 
 
-    <modules>
-        <module>core</module>
-    </modules>
+  <modules>
+    <module>core</module>
+  </modules>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
