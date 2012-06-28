@@ -36,7 +36,7 @@
     </parent>
 
     <artifactId>vm-configurator-core</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>JPaaS :: VM Configurator Core</name>
 
     <description>JPaaS : VM Configurator Core</description>
