@@ -1,0 +1,81 @@
+<topology
+  xmlns="http://jasmine.ow2.org/deployme-2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://jasmine.ow2.org/deployme-2.0 http://jasmine.ow2.org/xsds/deployme-2.0.xsd"
+  xmlns:tomcat7="http://jasmine.ow2.org/deployme/web-tomcat7-1.0"
+  name="demo" version="2.0">
+
+  <machines name="JPaaSMachines" version="1.0">
+    <machine name="h0" />
+  </machines>
+
+  <domains name="JPaaSDomains" version="1.0">
+
+    <servers-configuration>
+      <bootstrap master="false"
+                 securityPropagation="true"
+                 securityManager="true"
+                 csiv2Propagation="true"
+                 logConfigFile="myTrace"
+                 transactionPropagation="true"
+                 jonasDevelopment="false"/>
+
+    </servers-configuration>
+
+    <domain name="<%= @domain_name %>">
+
+      <servers>
+        <server machine="h0" name="<%= @server_name %>">
+          <jonas-root><%= @jonas_home %></jonas-root>
+          <jonas-base><%= @jonas_base %></jonas-base>
+
+          <configuration inherit="true">
+			  
+	          <carol-rmi host="<%= @host_name %>">
+              <jrmp port="<%= @jrmp_port %>"/>
+            </carol-rmi>
+
+             <tomcat7:web>
+              <tomcat7:ondemand redirectPort="10"/>
+              <tomcat7:connectors>
+                <tomcat7:http port="<%= @http_port %>"/>
+              </tomcat7:connectors>
+            </tomcat7:web>
+
+         </configuration> 
+        </server>
+      </servers> 
+
+       <agents inherit="true">
+        <agent name="jonas-agent"
+               autoboot="true"
+               interactionMode="tighly-coupled"
+               javaHome="<%= @java_home %>"
+               xparam="">
+
+          <jonas-root>/opt/jonas_agent</jonas-root>
+          <jonas-base>/opt/jonas_agent</jonas-base>
+
+          <configuration inherit="true">
+            <bootstrap master="true"/>
+            <carol-rmi host="localhost">
+              <jrmp port="1099"/>
+            </carol-rmi>
+            <depmonitor/>
+            <discovery/>
+            <jaxrs/>
+            <jtm/>
+            <wm/>
+          </configuration>
+          <managed-servers>
+            <server-name name="<%= @server_name %>"/>
+          </managed-servers>
+        </agent>
+      </agents>   
+           
+    </domain>
+  </domains>
+</topology>
+
+
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology
+  xmlns="http://jasmine.ow2.org/deployme-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://jasmine.ow2.org/deployme-1.2 http://jasmine.ow2.org/xsds/deployme-1.2.xsd">
+    <machines name="demo-machines" version="1.0">
+    <machine name="h0" />
+  </machines>
+    <domains>
+        <domain name="<%= @domain_name %>">
+            <configuration>
+                <global_options>
+                	<jonas_root><%= @jonas_home %></jonas_root>
+                	<java_home><%= @java_home %></java_home>
+                	<jonas_development>false</jonas_development>
+                </global_options>
+            </configuration>
+            <servers>
+	            <server machine="h0" name="<%= @server_name %>">
+		          <configuration>
+		            <global_options>
+		              <jonas_base><%= @jonas_base %></jonas_base>
+		              <host><%= @host_name %></host>
+		              <protocols_list>jrmp</protocols_list>
+		              <jrmp_port><%= @jrmp_port %></jrmp_port>
+		              <jonas_services>jtm,db,validation,resource,ejb3,jsf,jaxws,web,ear,depmonitor,discovery</jonas_services>
+		            </global_options>
+		            <web>
+		              <https_activated>false</https_activated>
+		              <ajp_activated>false</ajp_activated>
+		              <http_conf>
+		                <web_conf>
+		                  <port><%= @http_port %></port>
+		                </web_conf>
+		              </http_conf>
+		            </web>
+			    <db>
+			      <port><%= @internal_database_port %></port>
+                            </db>
+		          </configuration>
+		    </server>
+            </servers> 
+        </domain>
+    </domains>
+    <applications></applications>
+</topology>
