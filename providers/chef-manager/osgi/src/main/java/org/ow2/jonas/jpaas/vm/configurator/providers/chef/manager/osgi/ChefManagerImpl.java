@@ -346,6 +346,27 @@ public class ChefManagerImpl implements ChefManagerService {
     }
 
     /**
+     * Get the node run list
+     *
+     * @param name the node name
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String getNodeRunList(String name) throws ChefManagerException {
+        logger.debug("getNodeRunList (" + name + ")");
+        String nodeContent = getNodeInfo(name);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            return jsonNodeContent.getString("run_list");
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+    }
+
+    /**
      * Update the node run list
      *
      * @param name    the node name
@@ -367,7 +388,120 @@ public class ChefManagerImpl implements ChefManagerService {
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
         return response;
+    }
 
+    /**
+     * Add a role at the end of the node run list
+     *
+     * @param name the node name
+     * @param role the name of the role
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRoleToNodeRunListEnd(String name, String role) throws ChefManagerException {
+        logger.debug("addRoleToNodeRunListEnd (" + name + ", " + role + ")");
+        String nodeContent = getNodeInfo(name);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent.put("role[" + role + "]");
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a role at the beginning of the node run list
+     *
+     * @param name the node name
+     * @param role the name of the role
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRoleToNodeRunListBeginning(String name, String role) throws ChefManagerException {
+        logger.debug("addRoleToNodeRunListBeginning (" + name + ", " + role + ")");
+        String nodeContent = getNodeInfo(name);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent = new JSONArray(runListContent.toString().
+                    replaceFirst("\\[", "[" + "\"role[" + role + "]\","));
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a recipe at the end of the node run list
+     *
+     * @param name   the node name
+     * @param recipe the name of the recipe
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRecipeToNodeRunListEnd(String name, String recipe) throws ChefManagerException {
+        logger.debug("addRecipeToNodeRunListEnd (" + name + ", " + recipe + ")");
+        String nodeContent = getNodeInfo(name);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent.put("recipe[" + recipe + "]");
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a recipe at the beginning of the node run list
+     *
+     * @param name   the node name
+     * @param recipe the name of the recipe
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRecipeToNodeRunListBeginning(String name, String recipe) throws ChefManagerException {
+        logger.debug("addRecipeToNodeRunListBeginning (" + name + ", " + recipe + ")");
+        String nodeContent = getNodeInfo(name);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent = new JSONArray(runListContent.toString().
+                    replaceFirst("\\[", "[" + "\"recipe[" + recipe + "]\","));
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
     }
 
     /**
@@ -394,6 +528,23 @@ public class ChefManagerImpl implements ChefManagerService {
         WebResource.Builder builder = createRequest("GET","/roles", "");
         String response = builder.accept("application/json").get(String.class);
         return response;
+    }
+
+    /**
+     * Return true if the role exists
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return true if the role exists
+     */
+    public boolean roleExists(String roleName) throws ChefManagerException {
+        logger.debug("roleExists (" + roleName + ")");
+        try {
+            JSONObject roleList = new JSONObject(getRolesList());
+            return !roleList.isNull(roleName);
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error during JSON parsing", e);
+        }
     }
 
     /**
@@ -568,6 +719,29 @@ public class ChefManagerImpl implements ChefManagerService {
     }
 
     /**
+     * Get the node run list
+     *
+     * @param address the node IP address
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String getIpNodeRunList(String address) throws ChefManagerException {
+        logger.debug("updateIpNodeRunList (" + address + ")");
+
+        String nodeName = getIpNodeName(address);
+        String nodeContent = getNodeInfo(nodeName);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            return jsonNodeContent.getString("run_list");
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+    }
+
+    /**
      * Update the node run list
      *
      * @param address
@@ -597,6 +771,123 @@ public class ChefManagerImpl implements ChefManagerService {
         return response;
     }
 
+    /**
+     * Add a role at the end of the node run list
+     *
+     * @param address the node IP address
+     * @param role    the name of the role
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRoleToIpNodeRunListEnd(String address, String role) throws ChefManagerException {
+        logger.debug("addRoleToIpNodeRunListEnd (" + address + ", " + role + ")");
+        String nodeName = getIpNodeName(address);
+        String nodeContent = getNodeInfo(nodeName);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent.put("role[" + role + "]");
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a role at the beginning of the node run list
+     *
+     * @param address the node IP address
+     * @param role    the name of the role
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRoleToIpNodeRunListBeginning(String address, String role) throws ChefManagerException {
+        logger.debug("addRoleToIpNodeRunListBeginning (" + address + ", " + role + ")");
+        String nodeName = getIpNodeName(address);
+        String nodeContent = getNodeInfo(nodeName);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent = new JSONArray(runListContent.toString().
+                    replaceFirst("\\[", "[" + "\"role[" + role + "]\","));
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a recipe at the end of the node run list
+     *
+     * @param address the node IP address
+     * @param recipe    the name of the recipe
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRecipeToIpNodeRunListEnd(String address, String recipe) throws ChefManagerException {
+        logger.debug("addRecipeToIpNodeRunListEnd (" + address + ", " + recipe + ")");
+        String nodeName = getIpNodeName(address);
+        String nodeContent = getNodeInfo(nodeName);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent.put("recipe[" + recipe + "]");
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
+
+    /**
+     * Add a recipe at the beginning of the node run list
+     *
+     * @param address the node IP address
+     * @param recipe    the name of the recipe
+     * @return the response
+     * @throws org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException
+     *          if an error occurs
+     */
+    @Override
+    public String addRecipeToIpNodeRunListBeginning(String address, String recipe) throws ChefManagerException {
+        logger.debug("addRecipeToIpNodeRunListBeginning (" + address + ", " + recipe + ")");
+        String nodeName = getIpNodeName(address);
+        String nodeContent = getNodeInfo(nodeName);
+        JSONObject jsonNodeContent = null;
+        try {
+            jsonNodeContent = new JSONObject(nodeContent);
+            JSONArray runListContent = jsonNodeContent.getJSONArray("run_list");
+            runListContent = new JSONArray(runListContent.toString().
+                    replaceFirst("\\[", "[" + "\"recipe[" + recipe + "]\","));
+            jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
+            nodeContent = jsonNodeContent.toString();
+        } catch (JSONException e) {
+            throw new ChefManagerException("Error for matching the node run list", e);
+        }
+        WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
+        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
+        return response;
+    }
 
     /**
      * Delete the node

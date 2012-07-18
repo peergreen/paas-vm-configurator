@@ -217,6 +217,19 @@ public interface ChefManagerService {
     public String updateNodeInfo(String name, String content) throws ChefManagerException;
 
     /**
+     * Get the node run list
+     *
+     * @param name
+     *            the node name
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String getNodeRunList(String name) throws ChefManagerException;
+
+
+    /**
      * Update the node run list
      *
      * @param name
@@ -229,6 +242,62 @@ public interface ChefManagerService {
      * @return the response
      */
     public String updateNodeRunList(String name, String listContent) throws ChefManagerException;
+
+    /**
+     * Add a role at the end of the node run list
+     *
+     * @param name
+     *            the node name
+     * @param role
+     *            the name of the role
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRoleToNodeRunListEnd(String name, String role) throws ChefManagerException;
+
+    /**
+     * Add a role at the beginning of the node run list
+     *
+     * @param name
+     *            the node name
+     * @param role
+     *            the name of the role
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRoleToNodeRunListBeginning(String name, String role) throws ChefManagerException;
+
+    /**
+     * Add a recipe at the end of the node run list
+     *
+     * @param name
+     *            the node name
+     * @param recipe
+     *            the name of the recipe
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRecipeToNodeRunListEnd(String name, String recipe) throws ChefManagerException;
+
+    /**
+     * Add a recipe at the beginning of the node run list
+     *
+     * @param name
+     *            the node name
+     * @param recipe
+     *            the name of the recipe
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRecipeToNodeRunListBeginning(String name, String recipe) throws ChefManagerException;
 
 
     /**
@@ -253,6 +322,14 @@ public interface ChefManagerService {
      */
     public String getRolesList() throws ChefManagerException;
 
+    /**
+     * Return true if the role exists
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return true if the role exists
+     */
+    public boolean roleExists(String roleName) throws ChefManagerException;
 
     /**
      * Create a role
@@ -385,6 +462,18 @@ public interface ChefManagerService {
     public String updateIpNodeInfo(String address, String content) throws ChefManagerException;
 
     /**
+     * Get the node run list
+     *
+     * @param address
+     *            the node IP address
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String getIpNodeRunList(String address) throws ChefManagerException;
+
+    /**
      * Update the node run list
      *
      * @param address
@@ -397,6 +486,62 @@ public interface ChefManagerService {
      * @return the response
      */
     public String updateIpNodeRunList(String address, String listContent) throws ChefManagerException;
+
+    /**
+     * Add a role at the end of the node run list
+     *
+     * @param address
+     *            the node IP address
+     * @param role
+     *            the name of the role
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRoleToIpNodeRunListEnd(String address, String role) throws ChefManagerException;
+
+    /**
+     * Add a role at the beginning of the node run list
+     *
+     * @param address
+     *            the node IP address
+     * @param role
+     *            the name of the role
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRoleToIpNodeRunListBeginning(String address, String role) throws ChefManagerException;
+
+    /**
+     * Add a recipe at the end of the node run list
+     *
+     * @param address
+     *            the node IP address
+     * @param recipe
+     *            the name of the recipe
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRecipeToIpNodeRunListEnd(String address, String recipe) throws ChefManagerException;
+
+    /**
+     * Add a recipe at the beginning of the node run list
+     *
+     * @param address
+     *            the node IP address
+     * @param recipe
+     *            the name of the recipe
+     *
+     * @throws ChefManagerException if an error occurs
+     *
+     * @return the response
+     */
+    public String addRecipeToIpNodeRunListBeginning(String address, String recipe) throws ChefManagerException;
 
 
     /**

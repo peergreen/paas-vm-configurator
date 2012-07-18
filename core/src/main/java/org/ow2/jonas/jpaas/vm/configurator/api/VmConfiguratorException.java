@@ -25,31 +25,17 @@
 
 package org.ow2.jonas.jpaas.vm.configurator.api;
 
-
-import java.util.concurrent.Future;
-
 /**
- * Interface for the VmConfigurator.
- * @author David Richard
+ * VmConfigurator Exception
  */
-public interface IVmConfigurator {
+public class VmConfiguratorException extends Exception {
 
-    /**
-     * Install an Agent on an Iaas Compute
-     *
-     * @param agentName the name of the Agent
-     * @param computeName the name of the IaaS Compute
-     * @return the PaasConfiguration
-     */
-    public Future installAgent(String agentName, String computeName) throws VmConfiguratorException;
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Install a Software on an Iaas Compute
-     *
-     * @param computeName the name of the Iaas Compute
-     * @param paasConfigurationName the name of the PaaS configuration
-     * @return the PaasConfiguration
-     */
-    public Future installSoftware(String computeName, String paasConfigurationName) throws VmConfiguratorException;
-
+    public VmConfiguratorException(String msg) {
+        super(msg);
+    }
+    public VmConfiguratorException(String msg, Throwable t) {
+        super(msg,t);
+    }
 }

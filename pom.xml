@@ -63,7 +63,8 @@
     <jonas.version>5.3.0-M7-SNAPSHOT</jonas.version>
     <jersey.rest.version>1.9.1</jersey.rest.version>
     <geronimo.specs.version>1.1.1</geronimo.specs.version>
-    <easybeans-osgi-version>1.2.4</easybeans-osgi-version>
+    <easybeans.osgi.version>1.2.4</easybeans.osgi.version>
+    <org.json.version>20090211</org.json.version>
   </properties>
 
 

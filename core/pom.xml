@@ -37,9 +37,9 @@
 
   <artifactId>vm-configurator-core</artifactId>
   <packaging>bundle</packaging>
-  <name>JPaaS :: VM Configurator Core</name>
+  <name>jPaaS :: VM Configurator Core</name>
 
-  <description>JPaaS : VM Configurator Core</description>
+  <description>jPaaS : VM Configurator Core</description>
   <url>http://wiki.jasmine.ow2.org/</url>
   <developers/>
   <licenses>
@@ -71,14 +71,34 @@
       <version>${catalog.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.ow2.jonas.jpaas</groupId>
-      <artifactId>system-representation</artifactId>
+      <groupId>org.ow2.jonas.jpaas.system-representation</groupId>
+      <artifactId>system-representation-vo</artifactId>
       <version>${sr.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.ow2.jonas.jpaas.vm-configurator</groupId>
-      <artifactId>vm-configurator-api</artifactId>
+      <groupId>org.ow2.jonas.jpaas.system-representation</groupId>
+      <artifactId>system-representation-ejb</artifactId>
+      <version>${sr.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jms_1.1_spec</artifactId>
+      <version>${geronimo.specs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.easybeans.osgi</groupId>
+      <artifactId>easybeans-osgi-annotations</artifactId>
+      <version>${easybeans.osgi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.jonas.jpaas.vm-configurator.providers</groupId>
+      <artifactId>chef-manager-api</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>${org.json.version}</version>
     </dependency>
   </dependencies>
 
