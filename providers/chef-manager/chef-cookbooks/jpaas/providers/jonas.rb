@@ -55,21 +55,17 @@ require 'rexml/document'
 action :create do
   if !binary_exists? then
 
-    remote_file "/tmp/jonas-full.zip" do
+    remote_file "/tmp/jonas.zip" do
       source new_resource.install_url
       :create
     end
-
-    #bash "download-jonas" do
-    #  code "wget " + new_resource.install_url + " -O /tmp/jonas-full.zip"
-    # end
 
     package "unzip" do
       action :install
     end
 
     execute "unzip-jonas-binary" do
-      command "unzip -o /tmp/jonas-full.zip"
+      command "unzip -o /tmp/jonas.zip"
       cwd "/opt"
     end
 
@@ -79,7 +75,9 @@ action :create do
     end
 
   end
+end #end of :create
 
+action :provision do
   if !instance_exists? then
     user new_resource.jonas_user do
       system true
@@ -197,7 +195,7 @@ action :create do
 
   end
 
-end #end of create
+end #end of :provision
 
 action :start do
 

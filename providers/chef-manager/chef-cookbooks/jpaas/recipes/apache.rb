@@ -101,7 +101,11 @@ if !mod_jk_enable? then
   bash "enable mod_jk" do
     code "a2enmod jk; mkdir /etc/apache2/jk; > /etc/apache2/jk/workers.properties"
   end
+  service "apache2" do
+    action :restart
+  end
 end
+
 
 
 

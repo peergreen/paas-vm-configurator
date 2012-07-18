@@ -27,8 +27,9 @@
 # Cookbook Name:: jpaas
 # Attributes:: jonas
 
-  default["jpaas"]["jonas"] = [ { "id", "jonas-01" } ]
-  #node.default["jpaas"][:started] = false
+default["jpaas"]["jonas"] = [ { "id", "jonas-01" } ]
+#default["jpaas"]["jonas_download_url"] = "http://repository.ow2.org/nexus/content/repositories/snapshots/org/ow2/jonas/assemblies/profiles/legacy/jonas-full/5.3.0-M7-SNAPSHOT/jonas-full-5.3.0-M7-20120427.082730-49-bin.zip"
+#node.default["jpaas"][:started] = false
 
   
   

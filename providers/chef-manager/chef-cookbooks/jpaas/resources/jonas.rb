@@ -28,7 +28,7 @@
 # resource:: jonas.rb
 #
 
-actions :create, :start
+actions :create, :provision, :start
 
 attribute :java_home,	:kind_of => String, :required => true
 attribute :host_name,	:regex => /^([a-z]|[A-Z]|[0-9]|_|-|.|:)+$/, :required => true
