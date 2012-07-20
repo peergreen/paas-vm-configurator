@@ -362,7 +362,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = new JSONObject(nodeContent);
             return jsonNodeContent.getString("run_list");
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
     }
 
@@ -383,7 +383,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", new JSONArray(listContent));
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -411,7 +411,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -440,7 +440,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -468,7 +468,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -497,7 +497,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -543,7 +543,7 @@ public class ChefManagerImpl implements ChefManagerService {
             JSONObject roleList = new JSONObject(getRolesList());
             return !roleList.isNull(roleName);
         } catch (JSONException e) {
-            throw new ChefManagerException("Error during JSON parsing", e);
+            throw new ChefManagerException("Error during JSON parsing", e.getCause());
         }
     }
 
@@ -673,7 +673,7 @@ public class ChefManagerImpl implements ChefManagerService {
             String nodeName = m.group(1);
             return nodeName;
         } catch (Exception e) {
-            throw new ChefManagerException("Node not found", e);
+            throw new ChefManagerException("Node not found", e.getCause());
         }
     }
 
@@ -737,7 +737,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = new JSONObject(nodeContent);
             return jsonNodeContent.getString("run_list");
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
     }
 
@@ -764,7 +764,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", new JSONArray(listContent));
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -793,7 +793,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -823,7 +823,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -852,7 +852,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -882,7 +882,7 @@ public class ChefManagerImpl implements ChefManagerService {
             jsonNodeContent = jsonNodeContent.put("run_list", runListContent);
             nodeContent = jsonNodeContent.toString();
         } catch (JSONException e) {
-            throw new ChefManagerException("Error for matching the node run list", e);
+            throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
         String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
@@ -947,9 +947,9 @@ public class ChefManagerImpl implements ChefManagerService {
             kp = (KeyPair) new PEMReader(br).readObject();
             return kp;
         } catch (FileNotFoundException e) {
-            throw new ChefManagerException("Private key file not found", e);
+            throw new ChefManagerException("Private key file not found", e.getCause());
         } catch (IOException e) {
-            throw new ChefManagerException("Error while reading the key", e);
+            throw new ChefManagerException("Error while reading the key", e.getCause());
         }
     }
 
@@ -973,7 +973,7 @@ public class ChefManagerImpl implements ChefManagerService {
             String hash = new String(coded);
             return hash;
         } catch (Exception e) {
-            throw new ChefManagerException("Error during encryption", e);
+            throw new ChefManagerException("Error during encryption", e.getCause());
         }
     }
 
@@ -1000,7 +1000,7 @@ public class ChefManagerImpl implements ChefManagerService {
             String hash = new String(coded);
             return hash;
         } catch (Exception e) {
-            throw new ChefManagerException("Error during signature", e);
+            throw new ChefManagerException("Error during signature", e.getCause());
         }
     }
 
