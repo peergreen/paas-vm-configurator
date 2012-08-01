@@ -33,7 +33,10 @@ import org.ow2.jonas.jpaas.catalog.api.IPaasCatalogFacade;
 import org.ow2.jonas.jpaas.catalog.api.PaasCatalogException;
 import org.ow2.jonas.jpaas.catalog.api.PaasConfiguration;
 import org.ow2.jonas.jpaas.sr.facade.api.ISrIaasComputeFacade;
+import org.ow2.jonas.jpaas.sr.facade.api.ISrPaasAgentFacade;
+import org.ow2.jonas.jpaas.sr.facade.api.ISrPaasAgentIaasComputeLink;
 import org.ow2.jonas.jpaas.sr.facade.vo.IaasComputeVO;
+import org.ow2.jonas.jpaas.sr.facade.vo.PaasAgentVO;
 import org.ow2.jonas.jpaas.vm.configurator.api.IVmConfigurator;
 import org.ow2.jonas.jpaas.vm.configurator.api.VmConfiguratorException;
 import org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException;
@@ -77,6 +80,12 @@ public class VmConfiguratorBean implements IVmConfigurator {
     @OSGiResource
     IPaasCatalogFacade iPaasCatalogFacade = null;
 
+    @OSGiResource
+    ISrPaasAgentFacade iSrPaasAgentFacade = null;
+
+    @OSGiResource
+    ISrPaasAgentIaasComputeLink iSrPaasAgentIaasComputeLink = null;
+
     /**
      * Logger
      */
@@ -95,10 +104,24 @@ public class VmConfiguratorBean implements IVmConfigurator {
         IaasComputeVO iaasComputeVO = iSrIaasComputeFacade.getIaasCompute(getComputeIdByName(computeName));
         try {
             if (!roleIsPresent("Handler", iaasComputeVO.getRoles())) {
+                //add Handler role at the beginning of the run list
                 chefManagerService.addRoleToIpNodeRunListBeginning(iaasComputeVO.getIpAddress(), "Handler");
             }
             if (!roleIsPresent("Agent", iaasComputeVO.getRoles())) {
+                //add Agent role at the end of the run list
                 chefManagerService.addRoleToIpNodeRunListEnd(iaasComputeVO.getIpAddress(), "Agent");
+
+                //create agent in SR
+                PaasAgentVO paasAgentVO = new PaasAgentVO() ;
+                paasAgentVO.setState("CREATING");
+                paasAgentVO.setName(agentName);
+                //ToDO Non hard-coded port
+                paasAgentVO.setApiUrl("http://" + iaasComputeVO.getIpAddress() + ":9000");
+                paasAgentVO = iSrPaasAgentFacade.createAgent(paasAgentVO);
+
+                //create the link between the Agent and the IaasCompute
+                iSrPaasAgentIaasComputeLink.addPaasAgentIaasComputeLink(paasAgentVO.getId(), iaasComputeVO.getId());
+
             } else {
                 throw new VmConfiguratorException("jPaaS Agent is already installed.");
             }

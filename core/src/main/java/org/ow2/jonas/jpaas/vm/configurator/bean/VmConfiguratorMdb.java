@@ -31,10 +31,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ow2.easybeans.osgi.annotation.OSGiResource;
 import org.ow2.jonas.jpaas.sr.facade.api.ISrIaasComputeFacade;
+import org.ow2.jonas.jpaas.sr.facade.api.ISrPaasAgentFacade;
+import org.ow2.jonas.jpaas.sr.facade.api.ISrPaasAgentIaasComputeLink;
 import org.ow2.jonas.jpaas.sr.facade.vo.IaasComputeVO;
+import org.ow2.jonas.jpaas.sr.facade.vo.PaasAgentVO;
 import org.ow2.jonas.jpaas.vm.configurator.api.VmConfiguratorException;
-import org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerException;
-import org.ow2.jonas.jpaas.vm.configurator.providers.chef.manager.api.ChefManagerService;
 import org.ow2.util.log.Log;
 import org.ow2.util.log.LogFactory;
 
@@ -62,6 +63,12 @@ public class VmConfiguratorMdb implements MessageListener {
     @OSGiResource
     ISrIaasComputeFacade iSrIaasComputeFacade = null;
 
+    @OSGiResource
+    ISrPaasAgentFacade iSrPaasAgentFacade = null;
+
+    @OSGiResource
+    ISrPaasAgentIaasComputeLink iSrPaasAgentIaasComputeLink = null;
+
     /**
      * Logger
      */
@@ -88,7 +95,13 @@ public class VmConfiguratorMdb implements MessageListener {
                         matcher.find();
                         String role = matcher.group(1);
                         roleList.add(role);
+
+                        //Update the PaasAgent status if the role name is "Agent"
+                        if (role.equalsIgnoreCase("Agent")) {
+                            updatePaasAgentState("RUNNING", nodeIp);
+                        }
                     }
+                    //Update the IaasCompute roles list
                     updateIaasComputeRoles(roleList, nodeIp);
                 }
             } catch (JMSException e) {
@@ -108,7 +121,12 @@ public class VmConfiguratorMdb implements MessageListener {
         }
     }
 
-
+    /**
+     * Update the IaasCompute roles list
+     * @param roleList the new list of roles of the IaasCompute
+     * @param iaasComputeIp The IaasCompute ip address
+     * @throws VmConfiguratorException
+     */
     private void updateIaasComputeRoles(List<String> roleList, String iaasComputeIp) throws VmConfiguratorException {
         logger.debug("updateIaasComputeRole(" + roleList.toString() + ", " + iaasComputeIp + ")");
         List<IaasComputeVO> iaasComputeList = iSrIaasComputeFacade.findIaasComputes();
@@ -125,6 +143,33 @@ public class VmConfiguratorMdb implements MessageListener {
             IaasComputeVO iaasComputeVO = iSrIaasComputeFacade.getIaasCompute(computeId);
             iaasComputeVO.setRoles(roleList);
             iSrIaasComputeFacade.updateIaasCompute(iaasComputeVO);
+        }
+    }
+
+    /**
+     * Update the IaasCompute's PaasAgent state
+     * @param state the new state of the PaasAgent
+     * @param iaasComputeIp The IaasCompute ip address
+     * @throws VmConfiguratorException
+     */
+    private void updatePaasAgentState(String state, String iaasComputeIp) throws VmConfiguratorException {
+        logger.debug("updatePaasAgentState(" + state + ", " + iaasComputeIp + ")");
+        List<IaasComputeVO> iaasComputeList = iSrIaasComputeFacade.findIaasComputes();
+        String computeId = null;
+        for (IaasComputeVO tmp : iaasComputeList) {
+            if (tmp.getIpAddress().equals(iaasComputeIp)) {
+                computeId = tmp.getId();
+                break;
+            }
+        }
+        if (computeId == null) {
+            throw new VmConfiguratorException("Cannot find the Compute with the ip " + iaasComputeIp);
+        } else {
+            List<PaasAgentVO> paasAgentVOList = iSrPaasAgentIaasComputeLink.findPaasAgentsByIaasCompute(computeId);
+            for (PaasAgentVO paasAgentVO : paasAgentVOList) {
+                paasAgentVO.setState(state);
+                iSrPaasAgentFacade.updateAgent(paasAgentVO);
+            }
         }
     }
 }
