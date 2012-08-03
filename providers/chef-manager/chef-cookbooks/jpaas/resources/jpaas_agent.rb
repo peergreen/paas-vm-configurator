@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # JPaaS
-# Copyright (C) 2011 Bull S.A.S.
+# Copyright (C) 2011-2012 Bull S.A.S.
 # Contact: jasmine@ow2.org
 #
 # This library is free software; you can redistribute it and/or
@@ -28,20 +28,12 @@
 # resource:: jpaas_agent.rb
 #
 
-actions :create, :start
+actions :create, :start, :stop, :undeploy
 
 attribute :agent_version, :kind_of => String, :default => "5.3.0-M7-SNAPSHOT"
 attribute :repository_url, :kind_of => String, :default => "http://repository.ow2.org/nexus/service/local/repositories/"
-attribute :metadata_url, :kind_of => String
-attribute :metadata_xml, :kind_of => String
-attribute :metadata, :kind_of => String
-attribute :timpestamp, :kind_of => String
-attribute :build_number, :kind_of => String
-attribute :agent_home,	:kind_of => String, :default => "/opt/jpaas_agent"
-attribute :jonas_user,	:regex => /^([a-z]|[A-Z]|[0-9]|_|-)+$/, :default => "jonas"
-attribute :jonas_group,	:regex => /^([a-z]|[A-Z]|[0-9]|_|-)+$/, :default => "jonas"
-attribute :install_url,	:kind_of => String, :default => "http://repository.ow2.org/nexus/content/repositories/snapshots/org/ow2/jonas/jpaas/agent/jpaas-agent/0.0.1-SNAPSHOT/jpaas-agent-0.0.1-20120710.115003-1.zip"
-
+attribute :agent_home, :kind_of => String, :default => "/opt/jpaas_agent"
+attribute :install_url, :kind_of => String, :default => "http://repository.ow2.org/nexus/content/repositories/snapshots/org/ow2/jonas/jpaas/agent/jpaas-agent/0.0.1-SNAPSHOT/jpaas-agent-0.0.1-20120726.145212-15.zip"
 
 
 def isSnapshot?

@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # JPaaS
-# Copyright (C) 2011 Bull S.A.S.
+# Copyright (C) 2011-2012 Bull S.A.S.
 # Contact: jasmine@ow2.org
 #
 # This library is free software; you can redistribute it and/or
@@ -27,6 +27,5 @@
 # Cookbook Name:: jpaas
 # Attributes:: jpaas_agent
 
-  default["jpaas"]["jpaas_agent"] = [ { "id", "jpaas_agent-01" } ]
   default["jpaas"]["jpaas_agent_port"] = "9000"
 

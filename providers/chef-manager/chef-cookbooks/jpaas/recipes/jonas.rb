@@ -37,22 +37,18 @@ package "ant" do
   action :install
 end
 
+if !node["jpaas"]["jonas"]["apply_to"].nil? then
 
-if !node["jpaas"]["jonas"].nil? then
+  node["jpaas"]["jonas"]["apply_to"].each do |jonas_instance|
 
-  node["jpaas"]["jonas"].each do |jonas_instance|
-
-    jpaas_jonas jonas_instance[:id] do
+    jpaas_jonas jonas_instance do
       java_home "/usr/lib/jvm/java-6-sun/"
       host_name "localhost"
-      jonas_base "/opt/jonas_base/"+jonas_instance[:id]
-      #install_url "http://download.forge.objectweb.org/jonas/jonas-full-5.3.0-M7-bin.zip"
+      jonas_base "/opt/jonas_base/"+jonas_instance
+      server_id jonas_instance
       install_url node["jpaas"]["jonas_download_url"]
-      #action [ :create, :provision, :start ]
       action [ :create ]
     end
   end
-  
+
 end
-
-

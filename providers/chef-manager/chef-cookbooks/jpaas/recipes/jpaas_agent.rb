@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # JPaaS
-# Copyright (C) 2011 Bull S.A.S.
+# Copyright (C) 2011-2012 Bull S.A.S.
 # Contact: jasmine@ow2.org
 #
 # This library is free software; you can redistribute it and/or
@@ -28,28 +28,18 @@
 # Recipe:: jpaas_agent
 #
 
-
-if !node["jpaas"]["jpaas_agent"].nil? then
-
-  node["jpaas"]["jpaas_agent"].each do |jpaas_agent_instance|
-
-    jpaas_jpaas_agent jpaas_agent_instance[:id] do
+    jpaas_jpaas_agent "jpaas_agent" do
       agent_version "0.0.1-SNAPSHOT"
       agent_home "/opt/jpaas_agent"
-      if isSnapshot? then
+      if isSnapshot?
         require 'rexml/document'
-        metadata_url repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/maven-metadata.xml"
+        metadata_url = repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/maven-metadata.xml"
         download_metadata metadata_url
         metadata_xml = File.read("/tmp/maven-metadata.xml")
         metadata = REXML::Document.new(metadata_xml).root
         timestamp = REXML::XPath.first(metadata, '//timestamp').text
         build_number = REXML::XPath.first(metadata, '//buildNumber').text
-        install_url = repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/jpaas-agent-" + agent_version.split("-SNAPSHOT").first + "-" + timestamp + "-" + build_number +"-bin.tar.gz" 
+        install_url repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/jpaas-agent-" + agent_version.split("-SNAPSHOT").first + "-" + timestamp + "-" + build_number +".zip"
       end
-      action [ :create, :start ]
+        action [ :create, :start ]
     end
-  end
-  
-end
-
-

@@ -261,7 +261,7 @@ action :start do
               is_started = true
               #Do not work with Chef-Solo
               #sometimes do not work well (not saved instantly)
-              node.normal[new_resource.server_id + "_started"] = true
+              node.normal["jpaas"]["jonas"][new_resource.server_id + "_started"] = true
               node.save
               Chef::Log.info("ruby_block[start server] : server started ")
             elsif task_status == "RUNNING"
@@ -283,7 +283,7 @@ action :start do
       end
     end
     #Do not execute this block if this attribute exists
-    not_if { node.attribute?(new_resource.server_id + "_started") }
+    not_if { node["jpaas"]["jonas"].attribute?(new_resource.server_id + "_started") }
   end
 
 end

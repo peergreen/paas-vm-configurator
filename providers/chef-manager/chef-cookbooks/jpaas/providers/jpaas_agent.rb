@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # JPaaS
-# Copyright (C) 2011 Bull S.A.S.
+# Copyright (C) 2011-2012 Bull S.A.S.
 # Contact: jasmine@ow2.org
 #
 # This library is free software; you can redistribute it and/or
@@ -28,42 +28,68 @@
 # provider:: jpaas_agent.rb
 
 action :create do
-  if !binary_exists? then
+  unless binary_exists? then
 
     remote_file "/tmp/jpaas-agent.zip" do
       source new_resource.install_url
       :create
     end
-    
+
     package "unzip" do
-	  action :install
+      action :install
     end
 
-	directory "/opt/jpaas-agent-" + new_resource.agent_version do
-	  action :create
-	end
+    directory "/opt/jpaas-agent-" + new_resource.agent_version do
+      action :create
+    end
 
     execute "decompress-jpaas-agent-binary" do
       command "unzip -o /tmp/jpaas-agent.zip"
       cwd "/opt"
     end
-    
+
     link new_resource.agent_home do
       to "/opt/jpaas-agent-" + new_resource.agent_version
       link_type :symbolic
     end
-    
+
   end
 
-  
+
 end
 
 action :start do
-  if !jpaas_agent_already_started? then
+  unless jpaas_agent_already_started? then
     execute "start-jpaas-agent" do
-      #user new_resource.jonas_user
-      #group new_resource.jonas_group
-      command "export JPAAS_ROOT=JONAS_BASE=JONAS_ROOT=" + new_resource.agent_home + ";" + new_resource.agent_home + "/bin/jonas start -n jpaas-agent -clean"
+      command "export JPAAS_ROOT=" + new_resource.agent_home + ";" + new_resource.agent_home + "/jpaas-agent.sh start"
+    end
+  end
+end
+
+action :stop do
+  if jpaas_agent_already_started? then
+    execute "stop-jpaas-agent" do
+      returns 2
+      command "export JONAS_BASE= ; export JONAS_ROOT=" + new_resource.agent_home + ";" + new_resource.agent_home + "/bin/jpaas stop -n jpaas-agent"
+    end
+  end
+
+  directory new_resource.agent_home + "/work" do
+    recursive true
+    action :delete
+  end
+
+end
+
+action :undeploy do
+  if binary_exists? then
+    Directory "/opt/jpaas-agent-" + new_resource.agent_version do
+      recursive true
+      action :delete
+    end
+
+    link new_resource.agent_home do
+      action :delete
     end
   end
 end
