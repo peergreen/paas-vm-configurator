@@ -61,6 +61,8 @@ module Stomp
             send_report(msg)
           end
         else
+          require 'fileutils'
+          FileUtils::mkdir_p(Chef::Config[:file_backup_path])
           send_report(msg)
         end
         #write the summary in a file

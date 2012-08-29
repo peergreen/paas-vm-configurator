@@ -152,8 +152,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getClientsList() throws ChefManagerException {
         logger.debug("getClientsList ()");
         WebResource.Builder builder = createRequest("GET","/clients", "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -168,8 +167,7 @@ public class ChefManagerImpl implements ChefManagerService {
         logger.debug("createClient (" + name + ", " + isAdmin + ")");
         String content = "{\"name\": \"" + name + "\", \"admin\": " + isAdmin + "}";
         WebResource.Builder builder = createRequest("POST","/clients", content);
-        String response = builder.accept("application/json").type("application/json").post(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").post(String.class, content);
     }
 
     /**
@@ -182,8 +180,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getClientInfo(String name) throws ChefManagerException {
         logger.debug("getClientInfo (" + name +")");
         WebResource.Builder builder = createRequest("GET","/clients/" + name, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -199,8 +196,7 @@ public class ChefManagerImpl implements ChefManagerService {
         logger.debug("updateClient (" + name + "," + isAdmin + "," + regenerateKey + ")");
         String content = "{\"name\": \"" + name + "\", \"private_key\": " + regenerateKey + ", \"admin\": " + isAdmin + "}";
         WebResource.Builder builder = createRequest("PUT","/clients/" + name, content);
-        String response = builder.accept("application/json").type("application/json").put(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, content);
     }
 
     /**
@@ -213,8 +209,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String deleteClient(String name) throws ChefManagerException {
         logger.debug("deleteClient (" + name +")");
         WebResource.Builder builder = createRequest("DELETE","/clients/" + name, "");
-        String response = builder.accept("application/json").delete(String.class);
-        return response;
+        return builder.accept("application/json").delete(String.class);
     }
 
     /**
@@ -225,8 +220,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getCookbooks() throws ChefManagerException {
         logger.debug("deleteClient ()");
         WebResource.Builder builder = createRequest("GET","/cookbooks", "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -240,8 +234,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getCookbookVersions(String name) throws ChefManagerException {
         logger.debug("getCookbookVersions (" + name +")");
         WebResource.Builder builder = createRequest("GET","/cookbooks/" + name, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -256,8 +249,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getCookbookInfo(String name, String version) throws ChefManagerException {
         logger.debug("getCookbookInfo (" + name + ", " + version + ")");
         WebResource.Builder builder = createRequest("GET","/cookbooks/" + name + "/" + version, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -271,8 +263,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String updateCookbook(String name, String version, String content) throws ChefManagerException {
         logger.debug("updateCookbook (" + name + "," + version + "," + content + ")");
         WebResource.Builder builder = createRequest("PUT","/cookbooks/" + name + "/" + version, content);
-        String response = builder.accept("application/json").type("application/json").put(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, content);
     }
 
     /**
@@ -286,8 +277,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String deleteCookbook(String name, String version) throws ChefManagerException {
         logger.debug("deleteCookbook (" + name + ", " + version + ")");
         WebResource.Builder builder = createRequest("DELETE","/cookbooks/" + name + "/" + version, "");
-        String response = builder.accept("application/json").delete(String.class);
-        return response;
+        return builder.accept("application/json").delete(String.class);
     }
 
     /**
@@ -298,8 +288,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getNodesList() throws ChefManagerException {
         logger.debug("getNodesList ()");
         WebResource.Builder builder = createRequest("GET","/nodes", "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -312,8 +301,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String createNode(String content) throws ChefManagerException {
         logger.debug("createNode (" + content +")");
         WebResource.Builder builder = createRequest("POST","/nodes", content);
-        String response = builder.accept("application/json").type("application/json").post(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").post(String.class, content);
     }
 
     /**
@@ -326,8 +314,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getNodeInfo(String name) throws ChefManagerException {
         logger.debug("getNodeInfo (" + name +")");
         WebResource.Builder builder = createRequest("GET","/nodes/" + name, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -341,8 +328,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String updateNodeInfo(String name, String content) throws ChefManagerException {
         logger.debug("updateNodeInfo (" + name + ", " + content + ")");
         WebResource.Builder builder = createRequest("PUT", "/nodes/" + name, content);
-        String response = builder.accept("application/json").type("application/json").put(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, content);
     }
 
     /**
@@ -386,8 +372,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -414,8 +399,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -443,8 +427,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -471,8 +454,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -500,8 +482,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + name, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -514,8 +495,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String deleteNode(String name) throws ChefManagerException {
         logger.debug("deleteNode (" + name +")");
         WebResource.Builder builder = createRequest("DELETE","/nodes/" + name, "");
-        String response = builder.accept("application/json").delete(String.class);
-        return response;
+        return builder.accept("application/json").delete(String.class);
     }
 
     /**
@@ -526,8 +506,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getRolesList() throws ChefManagerException {
         logger.debug("getRolesList ()");
         WebResource.Builder builder = createRequest("GET","/roles", "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -557,8 +536,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String createRole(String content) throws ChefManagerException {
         logger.debug("createRole (" + content +")");
         WebResource.Builder builder = createRequest("POST","/roles", content);
-        String response = builder.accept("application/json").type("application/json").post(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").post(String.class, content);
     }
 
     /**
@@ -571,8 +549,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getRoleInfo(String name) throws ChefManagerException {
         logger.debug("getRoleInfo (" + name +")");
         WebResource.Builder builder = createRequest("GET","/roles/" + name, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -586,8 +563,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String updateRole(String name, String content) throws ChefManagerException {
         logger.debug("updateRole (" + name + ", " + content + ")");
         WebResource.Builder builder = createRequest("PUT","/roles/" + name, content);
-        String response = builder.accept("application/json").type("application/json").put(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, content);
     }
 
     /**
@@ -600,8 +576,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String deleteRole(String name) throws ChefManagerException {
         logger.debug("deleteRole (" + name +")");
         WebResource.Builder builder = createRequest("DELETE","/roles/" + name, "");
-        String response = builder.accept("application/json").delete(String.class);
-        return response;
+        return builder.accept("application/json").delete(String.class);
     }
 
     /**
@@ -613,8 +588,7 @@ public class ChefManagerImpl implements ChefManagerService {
     public String getSearchIndex() throws ChefManagerException {
         logger.debug("getSearchIndex ()");
         WebResource.Builder builder = createRequest("GET","/search", "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -647,8 +621,7 @@ public class ChefManagerImpl implements ChefManagerService {
         queryParams.add("rows", rows);
         queryParams.add("sort", sort);
         WebResource.Builder builder = createRequestWithQueryParameters("GET", "/search/" + name, "", queryParams);
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
 
@@ -670,8 +643,7 @@ public class ChefManagerImpl implements ChefManagerService {
             Pattern p=Pattern.compile(",\"fqdn\":\"(.*?)\",");
             Matcher m=p.matcher(searchResult);
             m.find();
-            String nodeName = m.group(1);
-            return nodeName;
+            return m.group(1);
         } catch (Exception e) {
             throw new ChefManagerException("Node not found", e.getCause());
         }
@@ -693,8 +665,7 @@ public class ChefManagerImpl implements ChefManagerService {
 
         String nodeName = getIpNodeName(address);
         WebResource.Builder builder = createRequest("GET","/nodes/" + nodeName, "");
-        String response = builder.accept("application/json").get(String.class);
-        return response;
+        return builder.accept("application/json").get(String.class);
     }
 
     /**
@@ -714,8 +685,7 @@ public class ChefManagerImpl implements ChefManagerService {
 
         String nodeName = getIpNodeName(address);
         WebResource.Builder builder = createRequest("PUT", "/nodes/" + nodeName, content);
-        String response = builder.accept("application/json").type("application/json").put(String.class, content);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, content);
     }
 
     /**
@@ -767,8 +737,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -796,8 +765,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -826,8 +794,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -855,8 +822,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -885,8 +851,7 @@ public class ChefManagerImpl implements ChefManagerService {
             throw new ChefManagerException("Error for matching the node run list", e.getCause());
         }
         WebResource.Builder builder = createRequest("PUT","/nodes/" + nodeName, nodeContent);
-        String response = builder.accept("application/json").type("application/json").put(String.class, nodeContent);
-        return response;
+        return builder.accept("application/json").type("application/json").put(String.class, nodeContent);
     }
 
     /**
@@ -904,8 +869,7 @@ public class ChefManagerImpl implements ChefManagerService {
 
         String nodeName = getIpNodeName(address);
         WebResource.Builder builder = createRequest("DELETE","/nodes/" + nodeName, "");
-        String response = builder.accept("application/json").delete(String.class);
-        return response;
+        return builder.accept("application/json").delete(String.class);
     }
 
     /**
@@ -918,13 +882,14 @@ public class ChefManagerImpl implements ChefManagerService {
      */
     public boolean isNodeAvailable(String address) {
         logger.debug("isNodeAvailable (" + address +")");
-
+        boolean result;
         try {
             getIpNodeName(address);
-            return true;
+            result = true;
         } catch (Exception e) {
-            return false;
+            result = false;
         }
+        return result;
     }
 
 
@@ -938,19 +903,18 @@ public class ChefManagerImpl implements ChefManagerService {
      * @return the KeyPair containing the private key
      */
     private KeyPair loadKey(String path) throws ChefManagerException {
-        String keyPath = path;
         BufferedReader br = null;
+        KeyPair kp = null;
         try {
-            br = new BufferedReader(new FileReader(keyPath));
+            br = new BufferedReader(new FileReader(path));
             Security.addProvider(new BouncyCastleProvider());
-            KeyPair kp = null;
             kp = (KeyPair) new PEMReader(br).readObject();
-            return kp;
         } catch (FileNotFoundException e) {
             throw new ChefManagerException("Private key file not found", e.getCause());
         } catch (IOException e) {
             throw new ChefManagerException("Error while reading the key", e.getCause());
         }
+        return kp;
     }
 
     /**
@@ -964,17 +928,17 @@ public class ChefManagerImpl implements ChefManagerService {
      */
     private String encrypt(String message) throws ChefManagerException {
         MessageDigest md;
-
+        String hash;
         try {
             md = MessageDigest.getInstance("SHA");
             md.update(message.getBytes("UTF-8"));
             byte raw[] = md.digest();
             byte[] coded = Base64.encode(raw);
-            String hash = new String(coded);
-            return hash;
+            hash = new String(coded);
         } catch (Exception e) {
             throw new ChefManagerException("Error during encryption", e.getCause());
         }
+        return hash;
     }
 
 
@@ -989,6 +953,7 @@ public class ChefManagerImpl implements ChefManagerService {
      * @return the signed message
      */
     private String sign(String message, KeyPair privateKey) throws ChefManagerException {
+        String hash;
         try {
             Signature signature = null;
             signature = Signature.getInstance("NONEwithRSA");
@@ -997,11 +962,11 @@ public class ChefManagerImpl implements ChefManagerService {
             signature.update(message.getBytes());
             byte [] signatureBytes = signature.sign();
             byte[] coded = Base64.encode(signatureBytes);
-            String hash = new String(coded);
-            return hash;
+            hash = new String(coded);
         } catch (Exception e) {
             throw new ChefManagerException("Error during signature", e.getCause());
         }
+        return hash;
     }
 
     /**
