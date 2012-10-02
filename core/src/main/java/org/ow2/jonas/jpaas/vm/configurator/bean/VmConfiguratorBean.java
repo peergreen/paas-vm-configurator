@@ -126,7 +126,7 @@ public class VmConfiguratorBean implements IVmConfigurator {
                 throw new VmConfiguratorException("jPaaS Agent is already installed.");
             }
         } catch (ChefManagerException e) {
-            throw new VmConfiguratorException("ChefManager has encountered a problem.", e.getCause());
+            throw new VmConfiguratorException("ChefManager has encountered a problem.", e);
         }
         return null;
     }
@@ -178,12 +178,12 @@ public class VmConfiguratorBean implements IVmConfigurator {
                         " named " + iaasComputeVO.getName() + ".");
             }
         } catch (org.w3c.dom.DOMException e) {
-            throw new VmConfiguratorException("Error during configuration loading - " + e.getMessage(), e.getCause());
+            throw new VmConfiguratorException("Error during configuration loading - " + e.getMessage(), e);
         } catch (ChefManagerException e) {
-            throw new VmConfiguratorException("ChefManager has encountered a problem.", e.getCause());
+            throw new VmConfiguratorException("ChefManager has encountered a problem.", e);
         } catch (PaasCatalogException e) {
             throw new VmConfiguratorException("Error to find the PaaS Configuration named " +
-                    paasConfigurationName + ".", e.getCause());
+                    paasConfigurationName + ".", e);
         }
         return null;
     }
@@ -278,9 +278,9 @@ public class VmConfiguratorBean implements IVmConfigurator {
             //Use ChefManager to create the role
             chefManagerService.createRole(jsonRoleContent.toString());
         } catch (JSONException e) {
-            throw new VmConfiguratorException("Error during the creation of the role's JSON content.", e.getCause());
+            throw new VmConfiguratorException("Error during the creation of the role's JSON content.", e);
         } catch (ChefManagerException e) {
-            throw new VmConfiguratorException("ChefManager has encountered a problem.", e.getCause());
+            throw new VmConfiguratorException("ChefManager has encountered a problem.", e);
         }
 
     }
@@ -299,11 +299,11 @@ public class VmConfiguratorBean implements IVmConfigurator {
             Document document = db.parse(f);
             result = document.getDocumentElement();
         } catch (IOException e) {
-            throw new VmConfiguratorException("Cannot open the file " + file, e.getCause());
+            throw new VmConfiguratorException("Cannot open the file " + file, e);
         } catch (ParserConfigurationException e) {
-            throw new VmConfiguratorException("Cannot parse the file " + file, e.getCause());
+            throw new VmConfiguratorException("Cannot parse the file " + file, e);
         } catch (SAXException e) {
-            throw new VmConfiguratorException("Cannot parse the file " + file, e.getCause());
+            throw new VmConfiguratorException("Cannot parse the file " + file, e);
         }
         return result;
     }
