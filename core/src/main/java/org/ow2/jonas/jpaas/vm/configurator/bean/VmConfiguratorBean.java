@@ -52,6 +52,8 @@ import org.xml.sax.SAXException;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -99,6 +101,7 @@ public class VmConfiguratorBean implements IVmConfigurator {
      * @return the PaasConfiguration
      */
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Future<IaasComputeVO> installAgent(String agentName, String computeName) throws VmConfiguratorException {
         logger.debug("installAgent(" + agentName + "," + computeName + ")");
         IaasComputeVO iaasComputeVO = iSrIaasComputeFacade.getIaasCompute(getComputeIdByName(computeName));
@@ -139,6 +142,7 @@ public class VmConfiguratorBean implements IVmConfigurator {
      * @return the PaasConfiguration
      */
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Future installSoftware(String computeName, String paasConfigurationName) throws VmConfiguratorException {
         logger.debug("installSoftware(" + computeName + "," + paasConfigurationName + ")");
         IaasComputeVO iaasComputeVO = iSrIaasComputeFacade.getIaasCompute(getComputeIdByName(computeName));
@@ -151,18 +155,20 @@ public class VmConfiguratorBean implements IVmConfigurator {
             if (extendRole.equalsIgnoreCase("true")) {
                 String chefParentRole = devopsConf.getElementsByTagName("chef-parent-role").item(0).
                         getFirstChild().getNodeValue();
-                if (chefManagerService.roleExists(chefRole)) {
-                    throw new VmConfiguratorException("Conflict : a Chef role named " + chefRole + " already exists.");
-                }
                 if (!chefManagerService.roleExists(chefParentRole)) {
                     throw new VmConfiguratorException("The Chef parent role " + chefParentRole + " does not exist.");
                 }
-                //Get override attributes
+                if (chefManagerService.roleExists(chefRole)) {
+                    logger.warn("Conflict : a Chef role named " + chefRole + " already exists. " +
+                            "(the old one will be used)");
+                } else {
+                                    //Get override attributes
                 Map<String,String> overrideAttributes = getChefAttributes(devopsConf, "chef-override-attributes");
                 //Get default attributes
                 Map<String,String> defaultAttributes = getChefAttributes(devopsConf, "chef-default-attributes");
                 //Create role
                 createRole(chefRole, chefParentRole, overrideAttributes, defaultAttributes);
+                }
             } else {
                 if (!chefManagerService.roleExists(chefRole)) {
                     throw new VmConfiguratorException("The Chef role " + chefRole + " does not exist.");
