@@ -3,7 +3,6 @@ require "chef/handler"
 module Stomp
   class Summarize < Chef::Handler
     attr_accessor :conf, :conffile, :previous_report_file
-
     def initialize(args)
       self.conffile = args[:configfile]
     end

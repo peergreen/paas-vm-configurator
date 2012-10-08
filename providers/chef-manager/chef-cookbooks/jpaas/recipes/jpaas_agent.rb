@@ -31,6 +31,8 @@
     jpaas_jpaas_agent "jpaas_agent" do
       agent_version "0.0.1-SNAPSHOT"
       agent_home "/opt/jpaas_agent"
+      #Use local repository instead of external url
+=begin
       if isSnapshot?
         require 'rexml/document'
         metadata_url = repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/maven-metadata.xml"
@@ -41,5 +43,8 @@
         build_number = REXML::XPath.first(metadata, '//buildNumber').text
         install_url repository_url + "snapshots/content/org/ow2/jonas/jpaas/agent/jpaas-agent/" + agent_version + "/jpaas-agent-" + agent_version.split("-SNAPSHOT").first + "-" + timestamp + "-" + build_number +".zip"
       end
+=end
+        #Set the url of jpaas-agent binary
+        install_url "http://10.197.180.20/rep-app/private/binaries/jpaas-agent-0.0.1-SNAPSHOT.zip"
         action [ :create, :start ]
     end

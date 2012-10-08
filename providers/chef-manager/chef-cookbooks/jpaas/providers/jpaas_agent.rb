@@ -27,6 +27,16 @@
 # Cookbook Name:: jpaas
 # provider:: jpaas_agent.rb
 
+#Max retry for a Rest request
+@@rest_max_retry = 10
+
+#Timeout for a Rest request
+@@rest_request_timeout = 300
+
+#Sleep time before retrying a REST request
+@@retrying_rest_sleep_time = 5
+
+
 action :create do
   unless binary_exists? then
 
@@ -63,6 +73,38 @@ action :start do
     execute "start-jpaas-agent" do
       command "export JPAAS_ROOT=" + new_resource.agent_home + ";" + new_resource.agent_home + "/jpaas-agent.sh start"
     end
+
+    ruby_block "test REST service" do
+      block do
+        url = URI.parse("http://localhost:" + node["jpaas"]["jpaas_agent_port"] + "/jonas-api/server")
+        http = Net::HTTP.new(url.host, url.port)
+        http.read_timeout = @@rest_request_timeout
+
+        testIsValid = false
+        retry_number = 0
+        #Retry to be sure that the required service is started in the JOnAS agent
+        begin
+          while testIsValid == false && retry_number < @@rest_max_retry
+            Chef::Log.debug("ruby_block[test REST service] : retry number = " + retry_number.to_s)
+            response = http.get(url.path)
+            Chef::Log.debug("ruby_block[test REST service] : Request return code value = " + response.code)
+            if response.code == "200" then
+              testIsValid = true
+              Chef::Log.info("ruby_block[test REST service] : REST service started")
+            else
+              sleep @@retrying_rest_sleep_time
+            end
+            retry_number += 1
+          end
+            #Avoid Errno::ECONNREFUSED when REST server is not started
+        rescue Exception
+          sleep @@retrying_rest_sleep_time
+          retry_number += 1
+          retry
+        end
+      end
+    end
+
   end
 end
 
