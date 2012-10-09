@@ -52,4 +52,12 @@ public interface IVmConfigurator {
      */
     public Future installSoftware(String computeName, String paasConfigurationName) throws VmConfiguratorException;
 
+
+    /**
+     * Release Chef resource : remove the IaaS Compute information on the Chef Server
+     *
+     * @param computeName the name of the Iaas Compute
+     */
+    public void releaseResource(String computeName) throws VmConfiguratorException;
+
 }

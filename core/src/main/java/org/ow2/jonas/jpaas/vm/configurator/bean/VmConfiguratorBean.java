@@ -162,12 +162,12 @@ public class VmConfiguratorBean implements IVmConfigurator {
                     logger.warn("Conflict : a Chef role named " + chefRole + " already exists. " +
                             "(the old one will be used)");
                 } else {
-                                    //Get override attributes
-                Map<String,String> overrideAttributes = getChefAttributes(devopsConf, "chef-override-attributes");
-                //Get default attributes
-                Map<String,String> defaultAttributes = getChefAttributes(devopsConf, "chef-default-attributes");
-                //Create role
-                createRole(chefRole, chefParentRole, overrideAttributes, defaultAttributes);
+                    //Get override attributes
+                    Map<String,String> overrideAttributes = getChefAttributes(devopsConf, "chef-override-attributes");
+                    //Get default attributes
+                    Map<String,String> defaultAttributes = getChefAttributes(devopsConf, "chef-default-attributes");
+                    //Create role
+                    createRole(chefRole, chefParentRole, overrideAttributes, defaultAttributes);
                 }
             } else {
                 if (!chefManagerService.roleExists(chefRole)) {
@@ -192,6 +192,32 @@ public class VmConfiguratorBean implements IVmConfigurator {
                     paasConfigurationName + ".", e);
         }
         return null;
+    }
+
+    /**
+     * Release Chef resource : unregister the IaaS Compute on the Chef Server
+     *
+     * @param computeName the name of the Iaas Compute
+     */
+    @Override
+    public void releaseResource(String computeName) throws VmConfiguratorException {
+        logger.debug("releaseResource(" + computeName + ")");
+        IaasComputeVO iaasComputeVO = iSrIaasComputeFacade.getIaasCompute(getComputeIdByName(computeName));
+        if (chefManagerService.isNodeAvailable(iaasComputeVO.getIpAddress())) {
+            String chefNodeName = null;
+            try {
+                chefNodeName = chefManagerService.getIpNodeName(iaasComputeVO.getIpAddress());
+            } catch (ChefManagerException e) {
+                throw new VmConfiguratorException("Cannot get the Chef Name of the IaaS Compute " + computeName +".", e);
+            }
+            try {
+                chefManagerService.deleteNode(chefNodeName);
+                chefManagerService.deleteClient(chefNodeName);
+            } catch (ChefManagerException e) {
+                throw new VmConfiguratorException("Error when deleting the information of the IaaS Compute "
+                        + computeName +".", e);
+            }
+        }
     }
 
     /**

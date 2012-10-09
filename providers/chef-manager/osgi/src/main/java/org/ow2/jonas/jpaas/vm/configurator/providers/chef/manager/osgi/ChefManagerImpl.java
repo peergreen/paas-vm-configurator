@@ -59,8 +59,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 /**
  * The implementation of the ChefManagerService Interface
