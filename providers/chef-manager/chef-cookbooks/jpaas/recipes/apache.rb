@@ -105,12 +105,3 @@ if !mod_jk_enable? then
     action :restart
   end
 end
-
-
-
-
-
-
-
-
-

@@ -45,6 +45,6 @@
       end
 =end
         #Set the url of jpaas-agent binary
-        install_url "http://10.197.180.20/rep-app/private/binaries/jpaas-agent-0.0.1-SNAPSHOT.zip"
+        install_url "http://10.197.180.20:8080/rep-app/private/binaries/jpaas-agent-0.0.1-SNAPSHOT.zip"
         action [ :create, :start ]
     end

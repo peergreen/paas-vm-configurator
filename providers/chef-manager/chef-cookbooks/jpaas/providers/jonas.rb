@@ -74,6 +74,14 @@ action :create do
       link_type :symbolic
     end
 
+    ## Open an AJP connector on port 9009 because of a bug in JOnAS (JIRA JONAS-937)
+    #    template new_resource.jonas_home + "/templates/conf/conf/tomcat7-server.xml" do
+    #      source "tomcat7-server.xml.erb"
+    #      variables(
+    #          :port => "9009",
+    #          :redirect_port => "9043"
+    #      )
+    #    end
   end
 end #end of :create
 
