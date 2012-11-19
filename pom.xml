@@ -54,7 +54,7 @@
     <catalog.version>1.0.0-SNAPSHOT</catalog.version>
     <sr.version>1.1.1-SNAPSHOT</sr.version>
     <ipojo.version>1.8.0</ipojo.version>
-    <jonas.version>5.3.0-M7-SNAPSHOT</jonas.version>
+    <jonas.version>5.3.0-M7</jonas.version>
     <jersey.rest.version>1.9.1</jersey.rest.version>
     <geronimo.specs.version>1.1.1</geronimo.specs.version>
     <easybeans.osgi.version>1.2.4</easybeans.osgi.version>
