@@ -51,8 +51,8 @@
     <ow2-spec.version>1.0.10</ow2-spec.version>
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
     <maven.bundle.plugin.version>2.3.7</maven.bundle.plugin.version>
-    <catalog.version>1.0.0-SNAPSHOT</catalog.version>
-    <sr.version>1.1.1-SNAPSHOT</sr.version>
+    <catalog.version>1.0.0-M1</catalog.version>
+    <sr.version>1.0.0-M1</sr.version>
     <ipojo.version>1.8.0</ipojo.version>
     <jonas.version>5.3.0-M7</jonas.version>
     <jersey.rest.version>1.9.1</jersey.rest.version>
