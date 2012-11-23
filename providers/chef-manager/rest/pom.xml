@@ -61,11 +61,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.ow2.jonas.jpaas.vm-configurator</groupId>
-      <artifactId>vm-configurator-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.ow2.jonas.jpaas.vm-configurator.providers</groupId>
       <artifactId>chef-manager-api</artifactId>
       <version>${project.version}</version>
