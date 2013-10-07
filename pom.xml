@@ -67,6 +67,8 @@
 
   <modules>
     <module>providers</module>
+    <module>api</module>
+    <module>core-mock</module>
     <module>core</module>
   </modules>
 
