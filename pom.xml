@@ -45,13 +45,13 @@
 
   <properties>
     <ow2-bundles.version>1.0.32</ow2-bundles.version>
-    <jdk.version>1.6</jdk.version>
-    <ow2-spec.version>1.0.10</ow2-spec.version>
+    <jdk.version>1.7</jdk.version>
+    <ow2-spec.version>1.0.13</ow2-spec.version>
     <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
     <maven.bundle.plugin.version>2.3.7</maven.bundle.plugin.version>
-    <catalog.version>1.0.0-M1</catalog.version>
-    <sr.version>1.0.0-M1</sr.version>
-    <ipojo.version>1.8.0</ipojo.version>
+    <catalog.version>1.0.0-M2-SNAPSHOT</catalog.version>
+    <sr.version>1.0.0-M2-SNAPSHOT</sr.version>
+    <ipojo.version>1.10.1</ipojo.version>
     <jonas.version>5.3.0-M7</jonas.version>
     <jersey.rest.version>1.9.1</jersey.rest.version>
     <geronimo.specs.version>1.1.1</geronimo.specs.version>
@@ -59,11 +59,12 @@
     <org.json.version>20090211</org.json.version>
   </properties>
 
-  <scm>
-    <connection>scm:git:git://gitorious.ow2.org/ow2-jasmine/jpaas-vm-configurator.git</connection>
-    <developerConnection>scm:git:git@gitorious.ow2.org:ow2-jasmine/jpaas-vm-configurator.git</developerConnection>
-    <url>http://gitorious.ow2.org/ow2-jasmine/jpaas-vm-configurator/trees/master</url>
-  </scm>
+    <scm>
+        <connection>scm:git:https://forge.peergreen.com/git/git/jpaas/jpaas-vm-configurator.git</connection>
+        <developerConnection>scm:git:https://forge.peergreen.com/git/git/jpaas/jpaas-vm-configurator.git</developerConnection>
+        <url>https://forge.peergreen.com/git/summary/?r=jpaas/jpaas-vm-configurator.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
   <modules>
     <module>providers</module>
